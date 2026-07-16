@@ -136,7 +136,11 @@ export type retryBackoffs = {
 local retryBackoff = {}
 
 local function getMaxAttempts(maxRetries: number?): number
-	return if maxRetries and maxRetries >= 1 then maxRetries else math.huge
+		if maxRetries == nil then
+		return math.huge
+	else
+		return math.max(maxRetries,1)
+	end
 end
 
 local function getJitter(jitterPercent: number?): number
